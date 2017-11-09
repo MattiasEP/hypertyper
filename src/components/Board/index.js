@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Word from '../Word'
 import styled from 'styled-components'
 
 const BoardWrapper = styled.div`
@@ -12,7 +13,7 @@ class Board extends Component {
     render() {
         return (
             <BoardWrapper>
-                hej
+                <Word />
             </BoardWrapper>
         )        
     }
