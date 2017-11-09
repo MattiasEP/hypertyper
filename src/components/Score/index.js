@@ -6,7 +6,14 @@ const ScoreWrapper = styled.div`
     top: 0;
     left: 0;
     padding: 20px;
-    font-size: 36px;
+
+    > p {
+        padding: 0;
+        margin: 0;
+        color: #d9d9d9;
+        text-transform: uppercase;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+    }
 `
 
 class Score extends Component {
