@@ -20,12 +20,13 @@ class Score extends Component {
 
     render() {
 
-        const { score, doneWords } = this.props
+        const { score, doneWords, level } = this.props
 
         return (
             <ScoreWrapper>
                 <p>SCORE: {score}</p>
                 <p>WORDS DONE: {doneWords}</p>
+                <p>LEVEL: {level}</p>
             </ScoreWrapper>
         )
     }

@@ -106,7 +106,8 @@ class App extends Component {
 		if(this.state.doneWords.length % 5 === 0) {
 			
 			this.setState({
-				speed: this.state.speed - 100
+				speed: this.state.speed - 100,
+				level: this.state.level + 1
 			}, () => {
 				clearInterval(this.timerId)
 				this.setTimer()
@@ -118,11 +119,11 @@ class App extends Component {
 
 	render() {
 		// Destructure from state
-		const { score, doneWords, boardWords, correctLetters } = this.state
+		const { score, doneWords, boardWords, correctLetters, level } = this.state
 
 		return ( 
 			<div>
-				<Score score={score} doneWords={doneWords.length} />
+				<Score score={score} doneWords={doneWords.length} level={level}/>
 				<Board correctLetters={correctLetters} words={boardWords} />
 			</div>
 		)
