@@ -115,7 +115,7 @@ class App extends Component {
 			this.setTimer(this.state.speed - 100)
 
 			this.setState({
-				speed: this.state.speed = this.state.speed - 100,
+				speed: this.state.speed - 100,
 				level: this.state.level + 1
 			})
 			
