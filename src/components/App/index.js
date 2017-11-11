@@ -6,7 +6,8 @@ import { words } from '../../words'
 
 class App extends Component {
 	constructor(props) {
-		super(props);
+		super(props)
+
 		this.state = {
 			score: 0,
 			allWords: [],
@@ -122,7 +123,7 @@ class App extends Component {
 	}
 
 	render() {
-
+		// Destructure from state
 		const { score, doneWords, boardWords, correctLetters } = this.state
 
 		return ( 
@@ -130,7 +131,7 @@ class App extends Component {
 				<Score score={score} doneWords={doneWords.length} />
 				<Board correctLetters={correctLetters} words={boardWords} />
 			</div>
-		);
+		)
 	}
 }
 
