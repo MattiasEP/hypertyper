@@ -17,11 +17,13 @@ class App extends Component {
 			speed: 3000,
 			correctLetters: 0,
 			level: 1,
-			levelHasChanged: true
+			levelHasChanged: true,
+			fallingSpeed: 10000,
+			wordsBetweenLevels: 5
 		}
 
 		this.handleKeyDown = this.handleKeyDown.bind(this)
-		this.timerId = null
+		this.wordIntervalId = null
 	}
 	
 	componentDidMount() {
@@ -29,18 +31,18 @@ class App extends Component {
 		this.setState({
 			allWords: words
 		}, () => {
-			this.setTimer()
+			this.setWordInterval()
 		})
 
 		document.addEventListener('keydown', this.handleKeyDown)		
 	}
 	
-	setTimer() {
+	setWordInterval() {
 		// Set this.timer
-		this.timerId = setInterval( () => {
+		this.wordIntervalId = setInterval( () => {
 			// Clear the timer if we're out of words othereise add new word
 			if(this.state.allWords.length < 1) {
-				clearInterval(this.state.timerId)
+				clearInterval(this.state.wordIntervalId)
 			} else {
 				this.addWord()
 			}
@@ -61,6 +63,13 @@ class App extends Component {
 			allWords: allWordsTemp,
 			boardWords: [...this.state.boardWords, { word: randomWord, posX: Math.floor( Math.random() * 1000 ) }]
 		})
+
+		// Set a timer same as the falling word speed (state.fallingSpeed)
+		// to game over and reset it when word is complete in checkLevel()
+		
+		// setTimeout( () => {
+		// 	this.gameOver()
+		// }, this.state.fallingSpeed )
 	}
 
 
@@ -93,6 +102,7 @@ class App extends Component {
 
 					this.updateScore(activeWord)
 					this.checkLevel()
+
 				}
 			}
 		}
@@ -105,17 +115,23 @@ class App extends Component {
 		})
 	}
 
+	gameOver() {
+		alert('game over!')
+	}
+
 	checkLevel() {
-		// For every 5 words in doneWords array
-		if(this.state.doneWords.length % 5 === 0) {
+		// For every [state.wordsBetweenLevels] words in doneWords array
+		// This is in with other words when we level up by one
+		if(this.state.doneWords.length % this.state.wordsBetweenLevels === 0) {
 			
 			this.setState({
-				speed: this.state.speed - 100,
+				speed: this.state.speed - 200,
 				level: this.state.level + 1,
-				levelHasChanged: true
+				levelHasChanged: true,
+				fallingSpeed: this.state.fallingSpeed - 20
 			}, () => {
-				clearInterval(this.timerId)
-				this.setTimer()
+				clearInterval(this.wordIntervalId)
+				this.setWordInterval()
 			})
 		} else {
 			this.state.levelHasChanged === true && this.setState({ levelHasChanged: false })
@@ -124,13 +140,21 @@ class App extends Component {
 
 	render() {
 		// Destructure from state
-		const { score, doneWords, boardWords, correctLetters, level, levelHasChanged } = this.state
+		const {
+			score,
+			doneWords,
+			boardWords,
+			correctLetters,
+			level,
+			levelHasChanged,
+			fallingSpeed
+		} = this.state
 
 		return (
 			<div>
 				{ levelHasChanged && <LevelDisplay level={level} /> }
 				<Score score={score} doneWords={doneWords.length} level={level}/>
-				<Board correctLetters={correctLetters} words={boardWords} />
+				<Board fallingSpeed={fallingSpeed} correctLetters={correctLetters} words={boardWords} />
 			</div>
 		)
 	}

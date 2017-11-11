@@ -14,13 +14,13 @@ const BoardWrapper = styled.div`
 class Board extends Component {
 
 	render() {
-		const { words, correctLetters } = this.props
+		const { words, correctLetters, fallingSpeed } = this.props
 
 		return (
 			<BoardWrapper>
 			{
 				words.map( (word) => {
-					return <Word correctLetters={correctLetters} key={word.word} word={word} />
+					return <Word fallingSpeed={fallingSpeed} correctLetters={correctLetters} key={word.word} word={word} />
 				} )
 			}
 			</BoardWrapper>

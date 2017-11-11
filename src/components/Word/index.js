@@ -23,7 +23,7 @@ const WordWrapper = styled.span`
 	left: ${ props => props.posX }px;
 	transform: translateY(-100px);
 
-	animation: ${animation} 10s linear;
+	animation: ${animation} ${props => props.fallingSpeed}ms linear;
 
 	&:first-child > span:nth-child(-n+${props => props.correctLetters}) {
 		color: white;
@@ -34,10 +34,10 @@ const WordWrapper = styled.span`
 class Word extends Component {
 
 	render() {
-		const { word, correctLetters } = this.props
+		const { word, correctLetters, fallingSpeed } = this.props
 
 		return (
-			<WordWrapper posX={word.posX} correctLetters={correctLetters}>
+			<WordWrapper fallingSpeed={fallingSpeed} posX={word.posX} correctLetters={correctLetters}>
 				{
 					word.word.split('').map( (letter, i) => <span key={i}>{letter}</span>)
 				}

@@ -21,7 +21,7 @@ const LevelLabel = styled.span`
 	transform: translate(-50%, -50%);
 	color: white;
 	font-size: 1.6rem;
-	animation: ${animation} .7s forwards ease-out;
+	animation: ${animation} 700ms forwards ease-out;
 `
 
 
