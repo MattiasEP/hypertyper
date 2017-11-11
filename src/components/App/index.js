@@ -33,23 +33,17 @@ class App extends Component {
 		document.addEventListener('keydown', this.handleKeyDown)		
 	}
 	
-	setTimer(speed = this.state.speed) {
-
-		// If we run setTimer with a new speed then clear the timer
-		// and make a new one but with the new speed
-		if(speed !== this.state.speed) {
-			clearInterval(this.timerId)
-		}
-
+	setTimer() {
+		// Set this.timer
 		this.timerId = setInterval( () => {
-			// Stop the timer if we're out of words othereise add new word
+			// Clear the timer if we're out of words othereise add new word
 			if(this.state.allWords.length < 1) {
 				clearInterval(this.state.timerId)
 			} else {
 				this.addWord()
 			}
 
-		}, speed )
+		}, this.state.speed )
 
 	}
 
@@ -110,12 +104,12 @@ class App extends Component {
 	checkLevel() {
 		// For every 5 words in doneWords array
 		if(this.state.doneWords.length % 5 === 0) {
-
-			// Set a new timer with reduced speed
-			this.setTimer(this.state.speed - 100)
-
+			
 			this.setState({
-				speed: this.state.speed = this.state.speed - 100
+				speed: this.state.speed - 100
+			}, () => {
+				clearInterval(this.timerId)
+				this.setTimer()
 			})
 			
 
