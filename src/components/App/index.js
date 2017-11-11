@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Board from '../Board'
 import Score from '../Score'
+import LevelDisplay from '../LevelDisplay'
 
 import { words } from '../../words'
 
@@ -15,7 +16,8 @@ class App extends Component {
 			doneWords: [],
 			speed: 3000,
 			correctLetters: 0,
-			level: 1
+			level: 1,
+			levelHasChanged: true
 		}
 
 		this.handleKeyDown = this.handleKeyDown.bind(this)
@@ -57,17 +59,19 @@ class App extends Component {
 		// Set the new state with the new words
 		this.setState({
 			allWords: allWordsTemp,
-			boardWords: [...this.state.boardWords, randomWord]
+			boardWords: [...this.state.boardWords, { word: randomWord, posX: Math.floor( Math.random() * 1000 ) }]
 		})
 	}
 
 
 	handleKeyDown(e) {
-		// This is the current word to type (the first in the array)
-		const activeWord = this.state.boardWords[0]
-
+		
 		// If there are words to type
 		if(this.state.boardWords.length > 0) {
+			
+			// This is the current word to type (the first in the array)
+			const activeWord = this.state.boardWords[0].word
+
 			// If you typed the first letter
 			if( e.key.toLowerCase() === activeWord[this.state.correctLetters].toLowerCase() ) {
 				this.setState({
@@ -107,22 +111,24 @@ class App extends Component {
 			
 			this.setState({
 				speed: this.state.speed - 100,
-				level: this.state.level + 1
+				level: this.state.level + 1,
+				levelHasChanged: true
 			}, () => {
 				clearInterval(this.timerId)
 				this.setTimer()
 			})
-			
-
+		} else {
+			this.state.levelHasChanged === true && this.setState({ levelHasChanged: false })
 		}
 	}
 
 	render() {
 		// Destructure from state
-		const { score, doneWords, boardWords, correctLetters, level } = this.state
+		const { score, doneWords, boardWords, correctLetters, level, levelHasChanged } = this.state
 
-		return ( 
+		return (
 			<div>
+				{ levelHasChanged && <LevelDisplay level={level} /> }
 				<Score score={score} doneWords={doneWords.length} level={level}/>
 				<Board correctLetters={correctLetters} words={boardWords} />
 			</div>

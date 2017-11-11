@@ -8,6 +8,7 @@ const BoardWrapper = styled.div`
 	background-color: #282a36;
 	box-shadow: 0 0 20px 6px rgba(0, 0, 0, .3);
 	padding: 20px;
+	position: relative;
 `
 
 class Board extends Component {
@@ -19,7 +20,7 @@ class Board extends Component {
 			<BoardWrapper>
 			{
 				words.map( (word) => {
-					return <Word correctLetters={correctLetters} key={word} word={word} />
+					return <Word correctLetters={correctLetters} key={word.word} word={word} />
 				} )
 			}
 			</BoardWrapper>
