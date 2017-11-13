@@ -10,7 +10,7 @@ class App extends Component {
 		super(props)
 
 		this.state = {
-			score: 0,
+			score: 10,
 			allWords: [],
 			boardWords: [],
 			doneWords: [],
