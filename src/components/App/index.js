@@ -3,14 +3,39 @@ import Board from '../Board'
 import Score from '../Score'
 import LevelDisplay from '../LevelDisplay'
 
+import styled from 'styled-components'
+
 import { words } from '../../words'
+
+const GameOver = styled.div`
+	width: 100vw;
+	height: 100vh;
+	background: ##2e3d5a;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	> h1 {
+		font-size: 12rem;
+		color: white;
+		text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+		cursor: pointer;
+		opacity: .5;
+		transition: opacity .2s;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+`
+
 
 class App extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			score: 10,
+			score: 0,
 			allWords: [],
 			boardWords: [],
 			doneWords: [],
@@ -19,10 +44,14 @@ class App extends Component {
 			level: 1,
 			levelHasChanged: true,
 			fallingSpeed: 10000,
-			wordsBetweenLevels: 5
+			wordsBetweenLevels: 5,
+			gameOver: false
 		}
 
 		this.handleKeyDown = this.handleKeyDown.bind(this)
+		this.gameOver = this.gameOver.bind(this)
+		this.restartGame = this.restartGame.bind(this)
+
 		this.wordIntervalId = null
 	}
 	
@@ -38,7 +67,7 @@ class App extends Component {
 	}
 	
 	setWordInterval() {
-		// Set this.timer
+		// Set the timer (defined in constructor)
 		this.wordIntervalId = setInterval( () => {
 			// Clear the timer if we're out of words othereise add new word
 			if(this.state.allWords.length < 1) {
@@ -116,7 +145,26 @@ class App extends Component {
 	}
 
 	gameOver() {
-		alert('game over!')
+		clearInterval(this.state.wordIntervalId)
+
+		this.setState({
+			gameOver: true
+		})
+	}
+
+	restartGame() {
+		this.setState({
+			doneWords: [],
+			boardWords: [],
+			allWords: words,
+			gameOver: false,
+			score: 0,
+			speed: 3000,
+			level: 1,
+			levelHasChanged: true
+		}, () => {
+			this.setWordInterval()
+		})
 	}
 
 	checkLevel() {
@@ -147,16 +195,24 @@ class App extends Component {
 			correctLetters,
 			level,
 			levelHasChanged,
-			fallingSpeed
+			fallingSpeed,
+			gameOver
 		} = this.state
 
-		return (
-			<div>
-				{ levelHasChanged && <LevelDisplay level={level} /> }
-				<Score score={score} doneWords={doneWords.length} level={level}/>
-				<Board fallingSpeed={fallingSpeed} correctLetters={correctLetters} words={boardWords} />
-			</div>
-		)
+		return gameOver
+			? (
+				<GameOver>
+					<h1 onClick={this.restartGame}>😵</h1>
+					<Score score={score} doneWords={doneWords.length} level={level} />
+				</GameOver>
+			)
+			: (
+				<div>
+					{ levelHasChanged && <LevelDisplay level={level} /> }
+					<Score score={score} doneWords={doneWords.length} level={level}/>
+					<Board gameOver={this.gameOver} fallingSpeed={fallingSpeed} correctLetters={correctLetters} words={boardWords} />
+				</div>
+			)
 	}
 }
 

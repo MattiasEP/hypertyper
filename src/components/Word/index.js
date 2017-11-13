@@ -32,17 +32,43 @@ const WordWrapper = styled.span`
 `
 
 class Word extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			timer: this.props.fallingSpeed/1000
+		}
+	}
+
+	componentDidMount() {
+		this.countDown()
+		clearInterval(this.timer)
+	}
+
+	countDown() {
+		setInterval( () => {
+			this.setState({
+				timer: this.state.timer - 1
+			}, () => {
+				if(this.state.timer <= 0) {
+					this.props.gameOver()
+				}
+			})
+		}, 1000)
+	}
 
 	render() {
 		const { word, correctLetters, fallingSpeed } = this.props
 
-		return (
-			<WordWrapper fallingSpeed={fallingSpeed} posX={word.posX} correctLetters={correctLetters}>
-				{
-					word.word.split('').map( (letter, i) => <span key={i}>{letter}</span>)
-				}
-			</WordWrapper>
-		)
+		return this.state.timer > 0
+			? (
+				<WordWrapper fallingSpeed={fallingSpeed} posX={word.posX} correctLetters={correctLetters}>
+					{
+						word.word.split('').map( (letter, i) => <span key={i}>{letter}</span>)
+					}
+				</WordWrapper>
+			)
+			: null
 	}
 }
 
