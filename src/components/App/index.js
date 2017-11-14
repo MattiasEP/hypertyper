@@ -57,7 +57,7 @@ class App extends Component {
 			levelHasChanged: true,
 			fallingSpeed: 10000,
 			wordsBetweenLevels: 5,
-			gameOver: true
+			gameOver: false
 		}
 
 		this.handleKeyDown = this.handleKeyDown.bind(this)
@@ -83,7 +83,7 @@ class App extends Component {
 		this.wordIntervalId = setInterval( () => {
 			// Clear the timer if we're out of words othereise add new word
 			if(this.state.allWords.length < 1) {
-				clearInterval(this.state.wordIntervalId)
+				clearInterval(this.wordIntervalId)
 			} else {
 				this.addWord()
 			}

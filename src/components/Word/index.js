@@ -36,7 +36,7 @@ class Word extends Component {
 		super(props)
 
 		this.state = {
-			timer: (this.props.fallingSpeed/1000) - 2
+			timer: this.props.fallingSpeed/1000
 		}
 
 		this.interval = null
