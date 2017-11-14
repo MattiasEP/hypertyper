@@ -209,14 +209,17 @@ class App extends Component {
 
 		return gameOver
 			? (
-				<GameOver>
-					<div onClick={this.restartGame}>
-						<h1>Game Over!</h1>
-						<span role="img" aria-label="Game Over">😵</span>
-					</div>
+				<div>
+					<GameOver>
+						<div onClick={this.restartGame}>
+							<h1>Game Over!</h1>
+							<span role="img" aria-label="Game Over">😵</span>
+						</div>
 
+					</GameOver>
+					
 					<Score score={score} doneWords={doneWords.length} level={level} />
-				</GameOver>
+				</div>
 			)
 			: (
 				<div>
