@@ -36,17 +36,23 @@ class Word extends Component {
 		super(props)
 
 		this.state = {
-			timer: this.props.fallingSpeed/1000
+			timer: (this.props.fallingSpeed/1000) - 2
 		}
+
+		this.interval = null
 	}
 
 	componentDidMount() {
 		this.countDown()
-		clearInterval(this.timer)
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval)
 	}
 
 	countDown() {
-		setInterval( () => {
+		this.interval = setInterval( () => {
+
 			this.setState({
 				timer: this.state.timer - 1
 			}, () => {

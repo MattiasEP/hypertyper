@@ -15,16 +15,28 @@ const GameOver = styled.div`
 	justify-content: center;
 	align-items: center;
 
-	> h1 {
-		font-size: 12rem;
-		color: white;
-		text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
-		cursor: pointer;
+	> div {
+		text-align: center;
 		opacity: .5;
+		cursor: pointer;
 		transition: opacity .2s;
 
 		&:hover {
 			opacity: 1;
+		}
+
+		> h1 {
+			font-size: 6rem;
+			margin: 1rem 0;
+			color: #d9d9d9;
+			text-transform: uppercase;
+			letter-spacing: 7px;
+			text-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+		}
+
+		> span {
+			font-size: 12rem;
+			color: white;
 		}
 	}
 `
@@ -45,7 +57,7 @@ class App extends Component {
 			levelHasChanged: true,
 			fallingSpeed: 10000,
 			wordsBetweenLevels: 5,
-			gameOver: false
+			gameOver: true
 		}
 
 		this.handleKeyDown = this.handleKeyDown.bind(this)
@@ -92,13 +104,7 @@ class App extends Component {
 			allWords: allWordsTemp,
 			boardWords: [...this.state.boardWords, { word: randomWord, posX: Math.floor( Math.random() * 1000 ) }]
 		})
-
-		// Set a timer same as the falling word speed (state.fallingSpeed)
-		// to game over and reset it when word is complete in checkLevel()
 		
-		// setTimeout( () => {
-		// 	this.gameOver()
-		// }, this.state.fallingSpeed )
 	}
 
 
@@ -145,7 +151,7 @@ class App extends Component {
 	}
 
 	gameOver() {
-		clearInterval(this.state.wordIntervalId)
+		clearInterval(this.wordIntervalId)
 
 		this.setState({
 			gameOver: true
@@ -154,14 +160,16 @@ class App extends Component {
 
 	restartGame() {
 		this.setState({
-			doneWords: [],
-			boardWords: [],
-			allWords: words,
-			gameOver: false,
 			score: 0,
+			allWords: words,
+			boardWords: [],
+			doneWords: [],
 			speed: 3000,
+			correctLetters: 0,
 			level: 1,
-			levelHasChanged: true
+			levelHasChanged: true,
+			fallingSpeed: 10000,
+			gameOver: false
 		}, () => {
 			this.setWordInterval()
 		})
@@ -202,7 +210,11 @@ class App extends Component {
 		return gameOver
 			? (
 				<GameOver>
-					<h1 onClick={this.restartGame}>😵</h1>
+					<div onClick={this.restartGame}>
+						<h1>Game Over!</h1>
+						<span role="img" aria-label="Game Over">😵</span>
+					</div>
+
 					<Score score={score} doneWords={doneWords.length} level={level} />
 				</GameOver>
 			)

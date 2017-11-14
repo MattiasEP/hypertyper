@@ -8,6 +8,7 @@ const ScoreWrapper = styled.div`
     padding: 20px;
 
     > p {
+        text-align: left;
         padding: 0;
         margin: 0;
         color: #d9d9d9;
