@@ -195,19 +195,30 @@ class App extends Component {
 
 	checkLevel() {
 		// For every [state.wordsBetweenLevels] words in doneWords array
-		// This is in with other words when we level up by one
+		// In other words when we level up by one
 		if(this.state.doneWords.length % this.state.wordsBetweenLevels === 0) {
 			
 			this.setState({
+				// Decrease word between every new word spawn
 				speed: this.state.speed - 200,
+
+				// Increase the level by 1
 				level: this.state.level + 1,
+
+				// The level has changed (beeing used to show level up message)
 				levelHasChanged: true,
+
+				// Decrease the words falling speed by 20
 				fallingSpeed: this.state.fallingSpeed - 20
 			}, () => {
+				// Clear the interval
 				clearInterval(this.wordIntervalId)
+
+				// Start putting out words again
 				this.setWordInterval()
 			})
 		} else {
+			// If we didn't level up set the levelHasChanged to false again
 			this.state.levelHasChanged === true && this.setState({ levelHasChanged: false })
 		}
 	}
