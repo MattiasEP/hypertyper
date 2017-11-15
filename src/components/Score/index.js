@@ -6,6 +6,7 @@ const ScoreWrapper = styled.div`
     top: 0;
     left: 0;
     padding: 20px;
+    z-index: 1; /* Put above <Board> */
 
     > p {
         text-align: left;

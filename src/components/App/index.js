@@ -41,7 +41,6 @@ const GameOver = styled.div`
 	}
 `
 
-
 class App extends Component {
 	constructor(props) {
 		super(props)
@@ -98,13 +97,35 @@ class App extends Component {
 
 		// Return a random word drom allWordsTemp and also splice (remove) from it
 		const randomWord = allWordsTemp.splice(Math.floor( Math.random() * allWordsTemp.length ), 1)[0]
-		
+
 		// Set the new state with the new words
 		this.setState({
+
 			allWords: allWordsTemp,
-			boardWords: [...this.state.boardWords, { word: randomWord, posX: Math.floor( Math.random() * 1000 ) }]
+			boardWords: [
+				...this.state.boardWords,
+				{
+					word: randomWord,
+					// Randomize the width (1000) and subtract the length of the word
+					// so that the word doesn't exceed the width of the board
+					// posX: Math.floor((Math.random() * 1000)) - ((randomWord.length * 19) + 44)
+					posX: this.calcWordPos(randomWord.length)
+				}
+			]
 		})
 		
+	}
+
+	calcWordPos(wordLength) {
+		// There are 19px per letter, 20px padding on each side and 2px border on each side
+		const wordWidth = (wordLength * 19) + 44
+		const randomNumber = Math.floor( Math.random() * 1000 ) + 20
+		const padding = 20
+		const fromPos = 1000 - (wordWidth + padding)
+		const toPos = 0 + padding
+
+		return Math.floor( Math.random() * ( ( fromPos - toPos) + 1 ) + toPos )
+
 	}
 
 
