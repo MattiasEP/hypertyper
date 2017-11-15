@@ -106,9 +106,6 @@ class App extends Component {
 				...this.state.boardWords,
 				{
 					word: randomWord,
-					// Randomize the width (1000) and subtract the length of the word
-					// so that the word doesn't exceed the width of the board
-					// posX: Math.floor((Math.random() * 1000)) - ((randomWord.length * 19) + 44)
 					posX: this.calcWordPos(randomWord.length)
 				}
 			]
