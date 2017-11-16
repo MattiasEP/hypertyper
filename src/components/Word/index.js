@@ -2,11 +2,18 @@ import React, { Component } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 const animation = keyframes`
-	from {
+	0% {
 		transform: translateY(-100px);
 	}
-	to {
+	50% {
+		border-color: #d9d9d9;
+	}
+	80% {
+		border-color: red;
+	}
+	100% {
 		transform: translateY(100vh);
+		border-color: red;
 	}
 `
 
@@ -26,7 +33,7 @@ const WordWrapper = styled.span`
 	animation: ${animation} ${props => props.fallingSpeed}ms linear;
 
 	&:first-child > span:nth-child(-n+${props => props.correctLetters}) {
-		color: white;
+		color: #3DE000;
 		font-weight: 700;
 	}
 `
