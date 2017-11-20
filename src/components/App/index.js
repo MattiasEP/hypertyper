@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import Board from '../Board'
 import Score from '../Score'
 import LevelDisplay from '../LevelDisplay'
 
 import styled from 'styled-components'
 
-import { words } from '../../words'
+import words from '../../words'
 
 const GameOver = styled.div`
 	width: 100vw;
@@ -116,7 +118,6 @@ class App extends Component {
 	calcWordPos(wordLength) {
 		// There are 19px per letter, 20px padding on each side and 2px border on each side
 		const wordWidth = (wordLength * 19) + 44
-		const randomNumber = Math.floor( Math.random() * 1000 ) + 20
 		const padding = 20
 		const fromPos = 1000 - (wordWidth + padding)
 		const toPos = 0 + padding
@@ -260,4 +261,10 @@ class App extends Component {
 	}
 }
 
-export default App
+function mapStateToProps(state) {
+	return {
+		defaultWords: state.words.defaultWords
+	}
+}
+
+export default connect(mapStateToProps)(App)
