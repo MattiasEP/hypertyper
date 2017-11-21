@@ -41,12 +41,10 @@ const WordWrapper = styled.span`
 class Word extends Component {
 	constructor(props) {
 		super(props)
-
 		this.state = {
-			timer: this.props.fallingSpeed/1000
+			alive: true
 		}
-
-		this.interval = null
+		this.timeout = null
 	}
 
 	componentDidMount() {
@@ -54,26 +52,23 @@ class Word extends Component {
 	}
 
 	componentWillUnmount() {
-		clearInterval(this.interval)
+		clearTimeout(this.timeout)
 	}
 
 	countDown() {
-		this.interval = setInterval( () => {
+		const { fallingSpeed, gameOver } = this.props
 
-			this.setState({
-				timer: this.state.timer - 1
-			}, () => {
-				if(this.state.timer <= 0) {
-					this.props.gameOver()
-				}
+		this.timeout = setTimeout( () => {
+			this.setState({ alive: false }, () => {
+				gameOver()
 			})
-		}, 1000)
+		}, fallingSpeed)
 	}
 
 	render() {
 		const { word, correctLetters, fallingSpeed } = this.props
 
-		return this.state.timer > 0
+		return this.state.alive
 			? (
 				<WordWrapper fallingSpeed={fallingSpeed} posX={word.posX} correctLetters={correctLetters}>
 					{

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const BoardWrapper = styled.div`
 	width: 1000px;
-	height: 100vh;
+	height: 150vh;
 	background-color: #282a36;
 	box-shadow: 0 0 20px 6px rgba(0, 0, 0, .3);
 	padding: 20px;
