@@ -25,7 +25,8 @@ class AudioPlayer extends Component {
     }
 
     componentDidUpdate() {
-        const a = fetch('./music.mp3').then(b => console.log(b))
+        const a = fetch('https://raw.githubusercontent.com/MattiasEP/hypertyper/feature/audio-player/src/components/AudioPlayer/music.mp3')
+            .then(b => console.log(b))
     }
 
     setPlayer() {
