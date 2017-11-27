@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Board from '../Board'
 import Score from '../Score'
 import LevelDisplay from '../LevelDisplay'
+import AudioPlayer from '../AudioPlayer'
 
 import styled from 'styled-components'
 
@@ -240,6 +241,7 @@ class App extends Component {
 		return gameOver
 			? (
 				<div>
+					<AudioPlayer />
 					<GameOver>
 						<div onClick={this.restartGame}>
 							<h1>Game Over!</h1>
@@ -253,6 +255,7 @@ class App extends Component {
 			)
 			: (
 				<div>
+					<AudioPlayer />
 					{ levelHasChanged && <LevelDisplay level={level} /> }
 					<Score score={score} doneWords={doneWords.length} level={level}/>
 					<Board gameOver={this.gameOver} fallingSpeed={fallingSpeed} correctLetters={correctLetters} words={boardWords} />
