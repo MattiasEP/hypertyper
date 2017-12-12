@@ -27,12 +27,12 @@ const WordWrapper = styled.span`
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
 	letter-spacing: 3px;
 	position: absolute;
-	left: ${ props => props.posX }px;
+	left: ${(props) => props.posX}px;
 	transform: translateY(-100px);
 
-	animation: ${animation} ${props => props.fallingSpeed}ms linear;
+	animation: ${animation} ${(props) => props.fallingSpeed}ms linear;
 
-	&:first-child > span:nth-child(-n+${props => props.correctLetters}) {
+	&:first-child > span:nth-child(-n+${(props) => props.correctLetters}) {
 		color: #3DE000;
 		font-weight: 700;
 	}
@@ -72,7 +72,7 @@ class Word extends Component {
 			? (
 				<WordWrapper fallingSpeed={fallingSpeed} posX={word.posX} correctLetters={correctLetters}>
 					{
-						word.word.split('').map( (letter, i) => <span key={i}>{letter}</span>)
+						word.word.split('').map( (letter) => <span key={`${word}-${letter}`}>{letter}</span>)
 					}
 				</WordWrapper>
 			)

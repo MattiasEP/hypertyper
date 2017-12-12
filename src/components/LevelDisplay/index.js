@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 const animation = keyframes`
@@ -25,15 +25,12 @@ const LevelLabel = styled.span`
 `
 
 
-class LevelDisplay extends Component {
-
-	render() {
-		const { level } = this.props
-		
-		return (
-			<LevelLabel>Level { level }</LevelLabel>
-		);
-	}
+const LevelDisplay = () => {
+	const { level } = this.props
+	
+	return (
+		<LevelLabel>Level { level }</LevelLabel>
+	)
 }
 
 export default LevelDisplay

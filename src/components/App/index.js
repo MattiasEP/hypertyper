@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import styled from 'styled-components'
+
 import Board from '../Board'
 import Score from '../Score'
 import LevelDisplay from '../LevelDisplay'
 
-import styled from 'styled-components'
 
 import words from '../../words'
 
@@ -88,9 +89,7 @@ class App extends Component {
 			} else {
 				this.addWord()
 			}
-
 		}, this.state.speed )
-
 	}
 
 	addWord() {
@@ -98,11 +97,11 @@ class App extends Component {
 		const allWordsTemp = [...this.state.allWords]
 
 		// Return a random word drom allWordsTemp and also splice (remove) from it
-		const randomWord = allWordsTemp.splice(Math.floor( Math.random() * allWordsTemp.length ), 1)[0]
+		const randomWord = allWordsTemp
+			.splice(Math.floor( Math.random() * allWordsTemp.length ), 1)[0]
 
 		// Set the new state with the new words
 		this.setState({
-
 			allWords: allWordsTemp,
 			boardWords: [
 				...this.state.boardWords,
@@ -112,7 +111,6 @@ class App extends Component {
 				}
 			]
 		})
-		
 	}
 
 	calcWordPos(wordLength) {
@@ -122,16 +120,13 @@ class App extends Component {
 		const fromPos = 1000 - (wordWidth + padding)
 		const toPos = 0 + padding
 
-		return Math.floor( Math.random() * ( ( fromPos - toPos) + 1 ) + toPos )
-
+		return Math.floor( (Math.random() * ( (fromPos - toPos) + 1 )) + toPos )
 	}
 
 
 	handleKeyDown(e) {
-		
 		// If there are words to type
 		if(this.state.boardWords.length > 0) {
-			
 			// This is the current word to type (the first in the array)
 			const activeWord = this.state.boardWords[0].word
 
@@ -156,7 +151,6 @@ class App extends Component {
 
 					this.updateScore(activeWord)
 					this.checkLevel()
-
 				}
 			}
 		}
@@ -198,7 +192,6 @@ class App extends Component {
 		// For every [state.wordsBetweenLevels] words in doneWords array
 		// In other words when we level up by one
 		if(this.state.doneWords.length % this.state.wordsBetweenLevels === 0) {
-			
 			this.setState({
 				// Decrease word between every new word spawn
 				speed: this.state.speed - 200,
@@ -220,7 +213,7 @@ class App extends Component {
 			})
 		} else {
 			// If we didn't level up set the levelHasChanged to false again
-			this.state.levelHasChanged === true && this.setState({ levelHasChanged: false })
+			this.state.levelHasChanged && this.setState({ levelHasChanged: false })
 		}
 	}
 
@@ -254,7 +247,7 @@ class App extends Component {
 			: (
 				<div>
 					{ levelHasChanged && <LevelDisplay level={level} /> }
-					<Score score={score} doneWords={doneWords.length} level={level}/>
+					<Score score={score} doneWords={doneWords.length} level={level} />
 					<Board gameOver={this.gameOver} fallingSpeed={fallingSpeed} correctLetters={correctLetters} words={boardWords} />
 				</div>
 			)

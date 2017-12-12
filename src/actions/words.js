@@ -5,8 +5,8 @@ const SET_DEFAULT_WORDS = 'SET_DEFAULT_WORDS'
  * @param {array} words
  */
 export const setDefaultWords = (words) => (dispatch) => {
-    dispatch({
-        type: SET_DEFAULT_WORDS,
-        payload: words
-    })
+	dispatch({
+		type: SET_DEFAULT_WORDS,
+		payload: words
+	})
 }

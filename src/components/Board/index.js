@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import Word from '../Word'
+import React from 'react'
 import styled from 'styled-components'
+
+import Word from '../Word'
 
 const BoardWrapper = styled.div`
 	width: 1000px;
@@ -11,21 +12,19 @@ const BoardWrapper = styled.div`
 	position: relative;
 `
 
-class Board extends Component {
+const Board = () => {
+	const { words, correctLetters, fallingSpeed, gameOver } = this.props
+	const { test, test2, test3, test5okrfokrfkorfkorf, testk3rok3oko3kf, testsatepakg, geh } = this.props
 
-	render() {
-		const { words, correctLetters, fallingSpeed, gameOver } = this.props
-
-		return (
-			<BoardWrapper>
+	return (
+		<BoardWrapper>
 			{
-				words.map( (word) => {
+				words.map((word) => {
 					return <Word gameOver={gameOver} fallingSpeed={fallingSpeed} correctLetters={correctLetters} key={word.word} word={word} />
-				} )
+				})
 			}
-			</BoardWrapper>
-		)        
-	}
+		</BoardWrapper>
+	)        
 }
 
 export default Board
