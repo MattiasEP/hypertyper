@@ -58,7 +58,7 @@ class Word extends Component {
 	countDown() {
 		const { fallingSpeed, gameOver } = this.props
 
-		this.timeout = setTimeout( () => {
+		this.timeout = setTimeout(() => {
 			this.setState({ alive: false }, () => {
 				gameOver()
 			})
