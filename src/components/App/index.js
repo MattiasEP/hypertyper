@@ -248,7 +248,12 @@ class App extends Component {
 				<div>
 					{ levelHasChanged && <LevelDisplay level={level} /> }
 					<Score score={score} doneWords={doneWords.length} level={level} />
-					<Board gameOver={this.gameOver} fallingSpeed={fallingSpeed} correctLetters={correctLetters} words={boardWords} />
+					<Board
+						gameOver={this.gameOver}
+						fallingSpeed={fallingSpeed}
+						correctLetters={correctLetters}
+						words={boardWords}
+					/>
 				</div>
 			)
 	}

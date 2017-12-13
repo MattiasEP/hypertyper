@@ -70,9 +70,15 @@ class Word extends Component {
 
 		return this.state.alive
 			? (
-				<WordWrapper fallingSpeed={fallingSpeed} posX={word.posX} correctLetters={correctLetters}>
+				<WordWrapper
+					fallingSpeed={fallingSpeed}
+					posX={word.posX}
+					correctLetters={correctLetters}
+				>
 					{
-						word.word.split('').map( (letter) => <span key={`${word}-${letter}`}>{letter}</span>)
+						word.word.split('').map( (letter) => (
+							<span key={`${word}-${letter}`}>{letter}</span>
+						) )
 					}
 				</WordWrapper>
 			)
