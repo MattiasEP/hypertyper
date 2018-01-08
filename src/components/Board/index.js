@@ -12,8 +12,8 @@ const BoardWrapper = styled.div`
 	position: relative;
 `
 
-const Board = () => {
-	const { words, correctLetters, fallingSpeed, gameOver } = this.props
+const Board = ({ ...props }) => {
+	const { words, correctLetters, fallingSpeed, gameOver } = props
 
 	return (
 		<BoardWrapper>

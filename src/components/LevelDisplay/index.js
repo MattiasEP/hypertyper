@@ -25,8 +25,8 @@ const LevelLabel = styled.span`
 `
 
 
-const LevelDisplay = () => {
-	const { level } = this.props
+const LevelDisplay = ({ ...props }) => {
+	const { level } = props
 	
 	return (
 		<LevelLabel>Level { level }</LevelLabel>

@@ -18,8 +18,8 @@ const ScoreWrapper = styled.div`
 	}
 `
 
-const Score = () => {
-	const { score, doneWords, level } = this.props
+const Score = ({ ...props }) => {
+	const { score, doneWords, level } = props
 
 	return (
 		<ScoreWrapper>
