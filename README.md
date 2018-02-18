@@ -5,4 +5,4 @@ All the words are copied from a public list of words. If you find any word you t
 
 This game is not yet finished and will be developed as we have spare time
 
-Demo: 
+Demo: https://hypertyper-demo.now.sh/
